@@ -9,7 +9,7 @@ public class McDonald {
     String sNaam;
     String sAdres;
     String sPostcode;
-    String sStad;
+    String sGemeente;
     String sProvincie;
     LatLng lPosition;
 
@@ -37,12 +37,12 @@ public class McDonald {
         this.sPostcode = sPostcode;
     }
 
-    public String getsStad() {
-        return sStad;
+    public String getsGemeente() {
+        return sGemeente;
     }
 
-    public void setsStad(String sStad) {
-        this.sStad = sStad;
+    public void setsGemeente(String sGemeente) {
+        this.sGemeente = sGemeente;
     }
 
     public LatLng getlPosition() {
@@ -62,12 +62,12 @@ public class McDonald {
         this.sProvincie = sProvincie;
     }
 
-    public McDonald(String sNaam, String sAdres, String sPostcode, String sStad, String sProvincie, LatLng lPosition) {
+    public McDonald(String sNaam, String sAdres, String sPostcode, String sGemeente, String sProvincie, LatLng lPosition) {
 
         this.sNaam = sNaam;
         this.sAdres = sAdres;
         this.sPostcode = sPostcode;
-        this.sStad = sStad;
+        this.sGemeente = sGemeente;
         this.sProvincie = sProvincie;
         this.lPosition = lPosition;
     }
