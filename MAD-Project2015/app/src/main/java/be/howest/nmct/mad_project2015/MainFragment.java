@@ -25,7 +25,18 @@ import be.howest.nmct.mad_project2015.loaders.McDonaldsLoader;
  */
 public class MainFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    static final String ARG_PROVINCIE = "be.howest.nmct.mad_project2015.PROVINCIE";
+
     McDonaldAdapter mAdapter;
+
+    String sProvincie;
+
+    public void SetProvincie(String sProvincie){
+        this.sProvincie = sProvincie;
+        Bundle args = new Bundle();
+        args.putString(ARG_PROVINCIE, sProvincie);
+        getLoaderManager().restartLoader(0, args, this);
+    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -52,7 +63,12 @@ public class MainFragment extends ListFragment implements LoaderManager.LoaderCa
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new McDonaldsLoader(getActivity());
+        //Vel zonder Provincie
+        if(args == null)
+            return new McDonaldsLoader(getActivity());
+        //Vel met Provincie
+        else
+            return new McDonaldsLoader(getActivity(), args.getString(ARG_PROVINCIE));
     }
 
     @Override

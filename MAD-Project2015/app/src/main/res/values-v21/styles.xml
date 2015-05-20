@@ -2,4 +2,22 @@
 <resources>
     <style name="AppTheme" parent="android:Theme.Material.Light">
     </style>
+
+    <style name="CustomThemeRed" parent="android:Theme.Material.Light">
+        <item name="android:statusBarColor">#CC0000</item>
+        <item name="android:actionBarStyle">@style/CustomActionBarRed</item>
+    </style>
+
+    <style name="CustomActionBarRed" parent="android:Widget.Material.Light.ActionBar">
+        <item name="android:background">#E50000</item>
+        <item name="android:titleTextStyle">@style/TitleColorWhite</item>
+    </style>
+
+    <style name="TitleColorWhite" parent="android:TextAppearance.Material.Widget.ActionBar.Title">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="CustomListViewRed" parent="android:Theme.Material.Light">
+        <item name="android:background">#E50000</item>
+    </style>
 </resources>

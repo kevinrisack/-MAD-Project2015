@@ -3,6 +3,8 @@ package be.howest.nmct.mad_project2015.admin;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import be.howest.nmct.mad_project2015.models.McDonald;
@@ -11,6 +13,24 @@ import be.howest.nmct.mad_project2015.models.McDonald;
  * Created by Kevin on 17/05/15.
  */
 public final class McDonaldAdmin {
+
+    private static List<String> listProvincies;
+    static{
+        listProvincies = new ArrayList<String>();
+
+        listProvincies.add("Antwerpen");
+        listProvincies.add("West-Vlaanderen");
+        listProvincies.add("Oost-Vlaanderen");
+        listProvincies.add("Henegouwen");
+        listProvincies.add("Luik");
+        listProvincies.add("Waals-Brabant");
+        listProvincies.add("Luxemburg");
+        listProvincies.add("Brussel");
+        listProvincies.add("Vlaams-Brabant");
+        listProvincies.add("Limburg");
+        listProvincies.add("Namen");
+    }
+
     private static List<McDonald> listMcDonalds;
     static{
         listMcDonalds = new ArrayList<McDonald>(); McDonald mc;
@@ -186,24 +206,25 @@ public final class McDonaldAdmin {
         mc = new McDonald("McDo IXELLES (In-Store)", "Chaussée d'Ixelles 21", "1050", "Brussel", "Brussel", new LatLng(50.837371, 4.361952));
         listMcDonalds.add(mc);
         
-        mc = new McDonald("McDo DIEST (Drive)", "Leuvensesteenweg 86", "3290", "Diest", "Vlaams Brabant", new LatLng(50.975538, 5.041784));
+        mc = new McDonald("McDo DIEST (Drive)", "Leuvensesteenweg 86", "3290", "Diest", "Vlaams-Brabant", new LatLng(50.975538, 5.041784));
         listMcDonalds.add(mc);        
         
-        mc = new McDonald("McDo HALLE (Drive)", "De Maeghtlaan 102", "1500", "Halle", "Vlaams Brabant", new LatLng(50.736977, 4.231634));
-        listMcDonalds.add(mc);         
-        mc = new McDonald("McDo KAMPENHOUT (Drive)", "Mechelsesteenweg 40", "1910", "Kampenhout", "Vlaams Brabant", new LatLng(50.959433, 4.58719));
+        mc = new McDonald("McDo HALLE (Drive)", "De Maeghtlaan 102", "1500", "Halle", "Vlaams-Brabant", new LatLng(50.736977, 4.231634));
+        listMcDonalds.add(mc);
+
+        mc = new McDonald("McDo KAMPENHOUT (Drive)", "Mechelsesteenweg 40", "1910", "Kampenhout", "Vlaams-Brabant", new LatLng(50.959433, 4.58719));
         listMcDonalds.add(mc);
                  
-        mc = new McDonald("McDo LEUVEN (In-Store)", "Kortestraat 7-9", "3000", "Leuven", "Vlaams Brabant", new LatLng(50.878903, 4.700204));
+        mc = new McDonald("McDo LEUVEN (In-Store)", "Kortestraat 7-9", "3000", "Leuven", "Vlaams-Brabant", new LatLng(50.878903, 4.700204));
         listMcDonalds.add(mc);  
                
-        mc = new McDonald("McDo OVERIJSE (Drive)", "Brusselsesteenweg 406", "3090", "Overijse", "Vlaams Brabant", new LatLng(50.785848, 4.500371));
+        mc = new McDonald("McDo OVERIJSE (Drive)", "Brusselsesteenweg 406", "3090", "Overijse", "Vlaams-Brabant", new LatLng(50.785848, 4.500371));
         listMcDonalds.add(mc); 
                 
-        mc = new McDonald("McDo SINT-PIETERS-LEEUW (Drive)", "Bergensesteenweg 65", "1600", "Sint-Pieters-Leeuw", "Vlaams Brabant", new LatLng(50.803385, 4.288906));
+        mc = new McDonald("McDo SINT-PIETERS-LEEUW (Drive)", "Bergensesteenweg 65", "1600", "Sint-Pieters-Leeuw", "Vlaams-Brabant", new LatLng(50.803385, 4.288906));
         listMcDonalds.add(mc);  
                
-        mc = new McDonald("McDo GROOT-BIJGAARDEN (Drive)", "Robert Dansaertlaan 11", "1702", "Groot-Bijgaarden", "Vlaams Brabant", new LatLng(50.867109, 4.274291));
+        mc = new McDonald("McDo GROOT-BIJGAARDEN (Drive)", "Robert Dansaertlaan 11", "1702", "Groot-Bijgaarden", "Vlaams-Brabant", new LatLng(50.867109, 4.274291));
         listMcDonalds.add(mc);       
                        
         mc = new McDonald("McDo HASSELT (Drive)", "Schampbergstraat 22", "3511", "Hasselt", "Limburg", new LatLng(50.938795, 5.302053));
@@ -226,7 +247,17 @@ public final class McDonaldAdmin {
     }
 
     public static List<McDonald> getMcDonalds() {
+        Collections.sort(listMcDonalds, new customComperator());
         return listMcDonalds;
+    }
+
+    public static List<McDonald> getMcDonalds(String sProvincie) {
+        List<McDonald> selectedMcDonadls = new ArrayList<>();
+
+        for (McDonald mc : getMcDonalds())
+            if (mc.getsProvincie().equals(sProvincie)) selectedMcDonadls.add(mc);
+
+        return selectedMcDonadls;
     }
 
     public static McDonald getMcDonald(String sNaam) {
@@ -234,5 +265,17 @@ public final class McDonaldAdmin {
             if (mcDonald.getsNaam().equals(sNaam)) return mcDonald;
         }
         return null;
+    }
+
+    public static List<String> getProvincies(){
+        Collections.sort(listProvincies);
+        return listProvincies;
+    }
+
+    public static class customComperator implements Comparator<McDonald>{
+        @Override
+        public int compare(McDonald lhs, McDonald rhs) {
+            return lhs.getsNaam().compareTo(rhs.getsNaam());
+        }
     }
 }

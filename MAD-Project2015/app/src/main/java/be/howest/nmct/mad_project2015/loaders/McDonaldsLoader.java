@@ -14,6 +14,8 @@ import be.howest.nmct.mad_project2015.models.McDonald;
  */
 public class McDonaldsLoader extends AsyncTaskLoader<Cursor> {
 
+    String sProvincie;
+
     private Cursor mCursor;
 
     private final String[] mColumnNames = new String[]{
@@ -30,6 +32,11 @@ public class McDonaldsLoader extends AsyncTaskLoader<Cursor> {
 
     public McDonaldsLoader(Context context){
         super(context);
+    }
+
+    public McDonaldsLoader(Context context, String sProvincie){
+        super(context);
+        this.sProvincie = sProvincie;
     }
 
     @Override
@@ -57,17 +64,31 @@ public class McDonaldsLoader extends AsyncTaskLoader<Cursor> {
             MatrixCursor cursor = new MatrixCursor(mColumnNames);
             int id=1;
 
-            for(McDonald mcDonald : McDonaldAdmin.getMcDonalds()){
-                MatrixCursor.RowBuilder row = cursor.newRow();
-                row.add(id);
-                row.add(mcDonald.getsNaam());
-                row.add(mcDonald.getsAdres());
-                row.add(mcDonald.getsPostcode());
-                row.add(mcDonald.getsGemeente());
-                row.add(mcDonald.getsProvincie());
-                row.add(mcDonald.getlPosition());
-                id++;
+            if(sProvincie == null)
+                for(McDonald mcDonald : McDonaldAdmin.getMcDonalds()) {
+                    MatrixCursor.RowBuilder row = cursor.newRow();
+                    row.add(id);
+                    row.add(mcDonald.getsNaam());
+                    row.add(mcDonald.getsAdres());
+                    row.add(mcDonald.getsPostcode());
+                    row.add(mcDonald.getsGemeente());
+                    row.add(mcDonald.getsProvincie());
+                    row.add(mcDonald.getlPosition());
+                    id++;
             }
+            else
+                for(McDonald mcDonald : McDonaldAdmin.getMcDonalds(sProvincie)) {
+                    MatrixCursor.RowBuilder row = cursor.newRow();
+                    row.add(id);
+                    row.add(mcDonald.getsNaam());
+                    row.add(mcDonald.getsAdres());
+                    row.add(mcDonald.getsPostcode());
+                    row.add(mcDonald.getsGemeente());
+                    row.add(mcDonald.getsProvincie());
+                    row.add(mcDonald.getlPosition());
+                    id++;
+                }
+
             mCursor = cursor;
         }
     }

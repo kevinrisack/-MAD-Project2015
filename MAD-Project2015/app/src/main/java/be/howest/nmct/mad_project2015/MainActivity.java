@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +14,9 @@ import android.view.ViewGroup;
 import android.os.Build;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements ProvincieFragment.OnProvincieListener {
+
+    DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +24,11 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new MainFragment())
+                    .add(R.id.container, new MainFragment(), "showFragmentMainFragment")
                     .commit();
         }
+
+        mDrawerLayout = (DrawerLayout) super.findViewById(R.id.drawer_layout);
     }
 
 
@@ -30,7 +36,7 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        return false;
     }
 
     @Override
@@ -46,5 +52,12 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void OnProvincieSelected(String sProvincie) {
+        MainFragment mainFragment = (MainFragment) getFragmentManager().findFragmentByTag("showFragmentMainFragment");
+        mainFragment.SetProvincie(sProvincie);
+        mDrawerLayout.closeDrawer(Gravity.LEFT);
     }
 }

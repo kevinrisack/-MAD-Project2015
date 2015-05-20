@@ -1,0 +1,26 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="left|start"
+    android:background="#E50000"
+    tools:context="be.howest.nmct.mad_project2015.ProvincieFragment">
+
+    <TextView
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#FFFFFF"
+        android:text="@string/txvFilterTitle"
+        android:id="@+id/txvFilterTitle" />
+
+    <ListView
+        style="@style/CustomListViewRed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@android:id/list"
+        android:layout_below="@+id/txvFilterTitle"
+        android:layout_alignParentStart="true" />/>
+
+</RelativeLayout>
