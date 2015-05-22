@@ -12,13 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
+import be.howest.nmct.mad_project2015.admin.McDonaldAdmin;
 import be.howest.nmct.mad_project2015.loaders.Contract;
 import be.howest.nmct.mad_project2015.loaders.McDonaldsLoader;
+import be.howest.nmct.mad_project2015.models.McDonald;
 
 /**
  * Created by Kevin on 17/05/15.
@@ -28,6 +31,7 @@ public class MainFragment extends ListFragment implements LoaderManager.LoaderCa
     static final String ARG_PROVINCIE = "be.howest.nmct.mad_project2015.PROVINCIE";
 
     McDonaldAdapter mAdapter;
+    OnMcDonaldListener mListener;
 
     String sProvincie;
 
@@ -38,9 +42,22 @@ public class MainFragment extends ListFragment implements LoaderManager.LoaderCa
         getLoaderManager().restartLoader(0, args, this);
     }
 
+    public interface OnMcDonaldListener{
+        public void OnMcDonaldSelected(String sNaam);
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mListener = (OnMcDonaldListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
 
         String[] columns = new String[]{
                 Contract.McDonaldColumns.COLUMN_MCDONALD_NAAM,
@@ -112,6 +129,14 @@ public class MainFragment extends ListFragment implements LoaderManager.LoaderCa
             TextView txvGemeente = (TextView) view.findViewById(R.id.txvGemeente);
             txvGemeente.setText(sGemeente);
         }
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        TextView txvNaam = (TextView) v.findViewById(R.id.txvNaam);
+        mListener.OnMcDonaldSelected(txvNaam.getText().toString());
     }
 
     @Override

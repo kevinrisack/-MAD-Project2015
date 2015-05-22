@@ -3,6 +3,7 @@ package be.howest.nmct.mad_project2015;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
@@ -13,8 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
+import be.howest.nmct.mad_project2015.models.McDonald;
 
-public class MainActivity extends Activity implements ProvincieFragment.OnProvincieListener {
+
+public class MainActivity extends Activity implements ProvincieFragment.OnProvincieListener, MainFragment.OnMcDonaldListener {
 
     DrawerLayout mDrawerLayout;
 
@@ -59,5 +62,20 @@ public class MainActivity extends Activity implements ProvincieFragment.OnProvin
         MainFragment mainFragment = (MainFragment) getFragmentManager().findFragmentByTag("showFragmentMainFragment");
         mainFragment.SetProvincie(sProvincie);
         mDrawerLayout.closeDrawer(Gravity.LEFT);
+    }
+
+    @Override
+    public void OnMcDonaldSelected(String sNaam) {
+        MapFragment newFragment = MapFragment.newInstance(sNaam);
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        // Replace whatever is in the fragment_container view with this fragment,
+        // and add the transaction to the back stack so the user can navigate back
+        transaction.replace(R.id.container, newFragment);
+        //transaction.addToBackStack(null);
+
+        // Commit the transaction
+        transaction.commit();
     }
 }
