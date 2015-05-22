@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="left|start"
+    android:layout_gravity="start"
     android:background="#E50000"
     tools:context="be.howest.nmct.mad_project2015.ProvincieFragment">
 

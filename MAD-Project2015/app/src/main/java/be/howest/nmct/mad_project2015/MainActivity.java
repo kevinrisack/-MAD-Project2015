@@ -73,7 +73,7 @@ public class MainActivity extends Activity implements ProvincieFragment.OnProvin
         // Replace whatever is in the fragment_container view with this fragment,
         // and add the transaction to the back stack so the user can navigate back
         transaction.replace(R.id.container, newFragment);
-        //transaction.addToBackStack(null);
+        transaction.addToBackStack(null);
 
         // Commit the transaction
         transaction.commit();
